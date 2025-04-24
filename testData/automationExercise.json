@@ -1,0 +1,15 @@
+{
+  "automationExerciseTestUrl": "https://automationexercise.com/",
+  "loginPageUrl": "https://automationexercise.com/login",
+  "pageTitle": "Automation Exercise",
+  "navbarMenuTexts": [
+    " Home",
+    " Products",
+    " Cart",
+    " Signup / Login",
+    " Test Cases",
+    " API Testing",
+    " Video Tutorials",
+    " Contact us"
+  ]
+}
