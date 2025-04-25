@@ -46,6 +46,8 @@ test("Register User Test", async ({ page }) => {
 
   await expect(page.locator(`text=Logged in as PlaywrightUser`)).toBeVisible();
 
+  await page.pause()
+
   await page.locator('a[href="/delete_account"]').click();
 
   await expect(page.getByText("Account Deleted!")).toBeVisible();

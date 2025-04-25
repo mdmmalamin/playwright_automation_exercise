@@ -16,7 +16,7 @@ class LoginTest extends ExpectedTextProvider {
         await runner.verifyTitle(automationExerciseData.pageTitle);
       });
 
-      test("Validating Login Attempts With Valid Credentials", async ({
+      test("Login User with correct email and password", async ({
         runner,
         homePage,
         loginPage,
@@ -31,16 +31,50 @@ class LoginTest extends ExpectedTextProvider {
         await runner.clearInputField(loginPage.emailInputField);
         await runner.typeInputBox(
           loginPage.emailInputField,
-          "mdmmalamin@gmail.com"
+          "usertest123@gmail.com"
         );
         await runner.verifyElementIsVisible(loginPage.passwordInputField);
         await runner.clearInputField(loginPage.passwordInputField);
-        await runner.typeInputBox(loginPage.passwordInputField, "Amintest@123");
+        await runner.typeInputBox(loginPage.passwordInputField, "userTest@123");
         await runner.clickOnElement(loginPage.loginButton);
 
-        await runner.verifyContainText(loginPage.loginHeadline,
-          "Logged in as username");
+        await runner.verifyContainText(
+          homePage.usernameBtn,
+          `Logged in as User Test`
+        );
+        await runner.clickOnElement(homePage.deleteAccountBtn);
+        await runner.verifyContainText(
+          "div[class='col-sm-9 col-sm-offset-1'] h2[data-qa='account-deleted']",
+          `Account Deleted!`
+        );
+      });
 
+      test("Login User with incorrect email and password", async ({
+        runner,
+        homePage,
+        loginPage,
+      }) => {
+        await runner.clickOnElement(homePage.signupLoginBtn);
+
+        await runner.verifyContainText(
+          loginPage.loginHeadline,
+          "Login to your account"
+        );
+        await runner.verifyElementIsVisible(loginPage.emailInputField);
+        await runner.clearInputField(loginPage.emailInputField);
+        await runner.typeInputBox(
+          loginPage.emailInputField,
+          "usertest124@gmail.com"
+        );
+        await runner.verifyElementIsVisible(loginPage.passwordInputField);
+        await runner.clearInputField(loginPage.passwordInputField);
+        await runner.typeInputBox(loginPage.passwordInputField, "userTest@123");
+        await runner.clickOnElement(loginPage.loginButton);
+
+        await runner.verifyContainText(
+          "p:has-text('Your email or password is incorrect!')",
+          `Your email or password is incorrect!`
+        );
       });
     });
   }
